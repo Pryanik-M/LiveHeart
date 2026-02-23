@@ -65,6 +65,7 @@ Linux / macOS
 source venv/bin/activate
 ```
 После активации перед строкой терминала появится (venv).
+
 4️⃣ Установить зависимости
 ```bash
 pip install -r requirements.txt
