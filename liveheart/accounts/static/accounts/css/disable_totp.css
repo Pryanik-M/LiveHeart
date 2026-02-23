@@ -1,0 +1,48 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    background: #fff5f5;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    border-top: 5px solid #ef4444;
+    max-width: 400px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+}
+
+button {
+    background: #ef4444;
+    width: 100%;
+}
+
+button:hover {
+    background: #dc2626;
+}
+
+.back-link {
+    align-self: flex-start;
+    margin-bottom: 20px;
+}
+
+.back-link a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.back-link a:hover {
+    opacity: 0.7;
+}
+
+.totp-content-stack {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 850px;
+}

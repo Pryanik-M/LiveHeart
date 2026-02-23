@@ -1,0 +1,75 @@
+.profile-wrapper {
+    width: 600px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* Это создает отступы в 40px МЕЖДУ карточками */
+    gap: 40px;
+    /* Добавим отступы сверху и снизу всей группы, чтобы не прилипало к краям экрана */
+    padding: 40px 0;
+}
+
+.profile-card {
+    width: 100%;
+    margin: 20px 0; /* Добавляет 20px сверху и снизу каждой карточки */
+}
+
+.profile-card button {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.back-link {
+    margin-bottom: 20px;
+}
+
+.message {
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.message.error {
+    color: red;
+}
+
+.message.success {
+    color: green;
+}
+
+hr {
+    margin: 30px 0;
+    border: none;
+    height: 1px;
+    background: #ccc;
+}
+
+.card {
+    width: 100%;
+    /* Гарантируем выравнивание контента по левому краю */
+    align-items: flex-start !important;
+    text-align: left !important;
+}
+
+.profile-card p,
+.profile-card h1,
+.profile-card h2,
+.profile-card h3,
+.profile-card div {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.totp-status-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Текст слева, кнопка справа */
+    width: 100%;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Убираем лишние отступы у текста внутри контейнера */
+.totp-success, .totp-warning {
+    margin-bottom: 0;
+}

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение входа</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/verify1.css' %}">
+</head>
+<body class="center-page">
+
+    <div class="card" style="max-width: 500px; width: 100%;">
+    <h2>Подтверждение входа</h2>
+
+    <div id="timer-text" style="text-align: center; margin-bottom: 15px;">
+        {% if cooldown > 0 %}
+            <p>Повторная отправка через <span id="timer">{{ cooldown }}</span> сек.</p>
+        {% endif %}
+    </div>
+
+    <form method="post" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="verify">
+
+        <input type="text" name="code" placeholder="Введите код" required autofocus
+               style="width: 100%; margin-bottom: 25px;">
+
+        <div class="buttons-row" style="display: flex; gap: 15px; width: 100%;">
+            <button type="submit" class="equal-btn" style="flex: 1;">Подтвердить</button>
+
+            <button type="button" id="resend-btn" class="equal-btn" style="flex: 1;"
+                    {% if cooldown > 0 %}disabled{% endif %}
+                    onclick="document.getElementById('resend-form').submit()">
+                Отправить код
+            </button>
+        </div>
+    </form>
+
+    <form id="resend-form" method="post" style="display:none;">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="send">
+    </form>
+</div>
+
+    <script>
+    let seconds = {{ cooldown|default:0 }};
+    const timerEl = document.getElementById("timer");
+    const resendBtn = document.getElementById("resend-btn");
+    const timerText = document.getElementById("timer-text");
+
+    if (seconds > 0) {
+        const interval = setInterval(() => {
+            seconds--;
+            if (timerEl) timerEl.textContent = seconds;
+
+            if (seconds <= 0) {
+                clearInterval(interval);
+                resendBtn.disabled = false;
+                timerText.innerHTML = ""; // Убираем текст таймера, когда время вышло
+            }
+        }, 1000);
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "SB Sans Text", sans-serif;
+}
+
+:root {
+    --bg-main: #F3F3F3;
+    --bg-card: #e0e0e0;
+    --text-dark: #14120e;
+    --shadow-dark: #bebebe;
+    --shadow-light: #ffffff;
+    --grid-color: #E1E1E1;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F3F3F3;
+    background-image:
+        linear-gradient(0deg, transparent 24%, #E1E1E1 25%, #E1E1E1 26%, transparent 27%, transparent 74%, #E1E1E1 75%, #E1E1E1 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, #E1E1E1 25%, #E1E1E1 26%, transparent 27%, transparent 74%, #E1E1E1 75%, #E1E1E1 76%, transparent 77%, transparent);
+    background-size: 55px 55px;
+    padding: 20px;
+}
+
+.container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow:
+        15px 15px 30px var(--shadow-dark),
+        -15px -15px 30px var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2, h3 {
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    text-align: center;
+    /*font-family: "SB Sans Text";*/
+}
+
+input {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 9999px;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+    box-shadow: inset 2px 5px 10px rgb(139, 139, 139);
+}
+
+input::placeholder {
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+button {
+    padding: 12px 30px;
+    border-radius: 9999px;
+    border: 2px solid rgb(206, 206, 206);
+    background-color: var(--bg-card);
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow:
+        inset 4px 4px 10px #bcbcbc,
+        inset -4px -4px 10px #ffffff;
+    transition: 0.2s ease-in-out;
+}
+
+button:hover {
+    box-shadow:
+        inset 2px 2px 5px #bcbcbc,
+        inset -2px -2px 5px #ffffff,
+        2px 2px 5px #bcbcbc,
+        -2px -2px 5px #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: 0.2s;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.center-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-end; /* Выравнивание по нижней линии */
+}
+
+.inline-form {
+    flex: 1; /* Каждая форма занимает равную ширину */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.equal-btn {
+    width: 100% !important; /* Кнопка занимает всё место своей колонки */
+    white-space: nowrap;    /* Текст в одну строку */
+    padding: 12px 10px;     /* Уменьшили боковые отступы, чтобы влезло */
+    font-size: 14px;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}

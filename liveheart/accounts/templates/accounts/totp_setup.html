@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подключение TOTP</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/totp_setup1.css' %}">
+</head>
+<body>
+
+<div class="totp-auth-page">
+    <div class="totp-content-stack">
+        <div class="back-link">
+            <a href="{% url 'accounts:profile' %}">← Назад</a>
+        </div>
+
+        <div class="totp-auth-card">
+            <div class="totp-auth-side-left">
+                <div class="qr-container">
+                    <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+                </div>
+            </div>
+
+            <div class="totp-auth-side-right">
+                <h2>Подключение приложения</h2>
+                <p class="subtitle">Отсканируйте QR-код в Google Authenticator</p>
+                {% if error %}
+                    <div class="error-box">{{ error }}</div>
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="text" name="code" placeholder="Введите 6-значный код" required>
+                    <button type="submit">Подтвердить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

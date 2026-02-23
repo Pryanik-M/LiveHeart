@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение входа</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/verify1.css' %}">
+</head>
+<body class="center-page">
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <h2>Введите код из приложения</h2>
+            <input type="text" name="code" placeholder="6-значный код" required autofocus>
+            {% if error %}
+                <p style="color:red; margin-bottom: 15px;">{{ error }}</p>
+            {% endif %}
+            <button type="submit">Подтвердить</button>
+        </form>
+    </div>
+
+</body>
+</html>

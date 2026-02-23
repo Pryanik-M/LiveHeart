@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+</head>
+<body  class="center-page">
+    <div class="container">
+    <div class="card" style="max-width:450px; margin:auto;">
+        <h2>Вход в систему</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label>Почта</label>
+            <input type="email" name="email" required>
+            <label>Пароль</label>
+            <input type="password" name="password" required>
+            {% if error %}
+                <p style="color:red; margin-bottom:15px;">{{ error }}</p>
+            {% endif %}
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,318 @@
+/* ================= ОБЩИЕ ПЕРЕМЕННЫЕ И СБРОС (Base) ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "SB Sans Text", sans-serif;
+}
+
+:root {
+    --bg-main: #F3F3F3;
+    --bg-card: #e0e0e0;
+    --text-dark: #14120e;
+    --shadow-dark: #bebebe;
+    --shadow-light: #ffffff;
+    --grid-color: #E1E1E1;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    background-image:
+        linear-gradient(0deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent);
+    background-size: 55px 55px;
+    padding: 40px 20px;
+}
+
+form {
+    width: 100%;
+    max-width: 900px;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+    border: none;
+}
+
+/* ================= КОНТЕЙНЕРЫ И КАРТОЧКИ ================= */
+.container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: 30px;
+    padding: 35px 40px;
+    box-shadow:
+        15px 15px 30px var(--shadow-dark),
+        -15px -15px 30px var(--shadow-light);
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 900px;
+}
+
+/* ================= ТИПОГРАФИКА И КНОПКИ ================= */
+h1, h2, h3 {
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.field input:not([type="checkbox"]) {
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+    padding: 10px 16px;
+    border-radius: 9999px;
+    border: none;
+    outline: none;
+    box-shadow: inset 2px 5px 10px rgb(139, 139, 139);
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    background: var(--bg-card);
+    box-shadow:
+        4px 4px 8px var(--shadow-dark),
+        -4px -4px 8px var(--shadow-light);
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s ease;
+}
+
+input[type="checkbox"]:checked {
+    background: #007bff;
+    box-shadow:
+        inset 2px 2px 5px rgba(0,0,0,0.2),
+        inset -2px -2px 5px rgba(255,255,255,0.2);
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    left: 4px;
+    top: -1px;
+}
+
+button {
+    padding: 12px 30px;
+    border-radius: 9999px;
+    border: 2px solid rgb(206, 206, 206);
+    background-color: var(--bg-card);
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow:
+        inset 4px 4px 10px #bcbcbc,
+        inset -4px -4px 10px #ffffff;
+    transition: 0.2s ease-in-out;
+}
+
+button:hover {
+    box-shadow:
+        inset 2px 2px 5px #bcbcbc,
+        inset -2px -2px 5px #ffffff,
+        2px 2px 5px #bcbcbc,
+        -2px -2px 5px #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: 0.2s;
+}
+
+a:hover { opacity: 0.7; }
+
+/* ================= ФОРМЫ (New Patient) ================= */
+.form-group {
+    border: none;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.form-group legend {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 18px;
+    display: block;
+}
+
+.form-group legend::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: rgba(0,0,0,0.15);
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.field {
+    display: grid;
+    grid-template-columns: 25px 1fr 220px;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;   /* больше воздуха */
+}
+
+.field input:not([type="checkbox"]) {
+    width: 220px !important;
+    min-width: 220px;
+    max-width: 220px;
+}
+
+.field input[type="datetime-local"] {
+    appearance: none;
+    width: 220px;
+}
+.field label {
+    white-space: nowrap;
+    padding-right: 10px;
+}
+
+.field input[type="number"],
+.field input[type="text"] {
+    padding: 6px 15px;
+    width: 100%;
+    margin-bottom: 0; /* Перекрываем общий стиль input */
+}
+
+.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* ================= КАРТА МИОКАРДА (Bullseye) ================= */
+.bullseye-wrapper {
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+    background: transparent;
+}
+
+#bullseye-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.segment {
+    fill: #ffffff;
+    stroke: #000000;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: fill 0.2s ease;
+}
+
+/* Состояния сегментов */
+.segment[data-state="0"] { fill: #ffffff; }
+.segment[data-state="1"] { fill: #ffd700; } /* Гипокинез */
+.segment[data-state="2"] { fill: #ff9800; } /* Акинез */
+.segment[data-state="3"] { fill: #f44336; } /* Дискинез */
+
+.segment:hover { opacity: 0.7; }
+
+.seg-label {
+    fill: #000;
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none;
+    text-anchor: middle;
+}
+
+.legend-bullseye {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.l-item i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* ================= МОДАЛЬНЫЕ ОКНА ================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 30px;
+    width: 320px;
+    text-align: center;
+    box-shadow:
+        15px 15px 30px var(--shadow-dark),
+        -15px -15px 30px var(--shadow-light);
+}
+
+.export-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.btn-exp.word { color: #2b579a; }
+.btn-exp.pdf { color: #b30b00; }
+.btn-exp.excel { color: #217346; }
+
+.btn-close {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ================= ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ ================= */
+.segment-footnote {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.footnote-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 30px;
+}
+
+h2 {
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    font-size: 28px;
+}
+
+.center-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* центр по горизонтали */
+    padding-top: 60px;
+}

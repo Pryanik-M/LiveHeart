@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои пациенты</title>
+    <link rel="stylesheet" href="{% static 'patients/css/history_patient.css' %}">
+</head>
+<body>
+
+<div class="history-page-container">
+    <div class="history-wrapper">
+        <div class="back-link">
+            <a href="{% url 'accounts:dashboard' %}">← Назад</a>
+        </div>
+
+        <div class="card header-card">
+            <div class="header-left">
+                <h1>Мои пациенты</h1>
+            </div>
+
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Поиск по ФИО пациента...">
+                    <button class="search-btn">🔍︎</button>
+                </div>
+                <a href="{% url 'patients:new_patient' %}" class="primary-btn">+ Новый пациент</a>
+            </div>
+        </div>
+        <div class="card table-card">
+            <table class="patients-table">
+                <thead>
+                    <tr>
+                        <th>ФИО пациента</th>
+                        <th>Последнее обследование</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <td class="patient-name">{{ patient.full_name }}</td>
+                        <td>
+                            {% with last_exam=patient.examination_set.last %}
+                                {% if last_exam %}
+                                    {{ last_exam.exam_datetime|date:"d.m.Y H:i" }}
+                                {% else %}
+                                    <span class="no-data">Нет данных</span>
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                        <td class="actions-cell">
+                            <a href="#" class="link-btn">Открыть карту</a>
+                            <form method="post" action="{% url 'patients:delete_patient' patient.id %}" class="delete-form" onsubmit="return confirm('Удалить пациента без возможности восстановления?');">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-btn">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="empty-row">У вас пока нет добавленных пациентов.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+</head>
+<body>
+
+<div class="center-page">
+    <div class="profile-wrapper">
+
+        <div class="back-link">
+            <a href="{% url 'accounts:dashboard' %}">← Назад</a>
+        </div>
+
+        <div class="card">
+            <h1 style="margin: 0 auto;">Профиль пользователя</h1>
+        </div>
+
+        <div class="card profile-card">
+            <h2>Основная информация</h2>
+            <p><strong>Имя:</strong> {{ user_obj.username }}</p>
+            <p><strong>Email:</strong> {{ user_obj.email }}</p>
+            <p><strong>Регистрация:</strong> {{ user_obj.date_joined }}</p>
+            <p><strong>Последний вход:</strong> {{ user_obj.last_login }}</p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="message {{ message.tags }}">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="card profile-card">
+            <h2>Безопасность</h2>
+            <div class="totp-status-container">
+            {% if user.totp_device and user.totp_device.confirmed %}
+                <div class="totp-success">
+                    🔓 Google Authenticator включен
+                </div>
+                <a href="{% url 'accounts:disable_totp' %}">
+                    <button>Отключить</button>
+                </a>
+            {% else %}
+                <div class="totp-warning">
+                    🔓 Google Authenticator выключен
+                </div>
+                <a href="{% url 'accounts:totp_setup' %}">
+                    <button>Включить</button>
+                </a>
+            {% endif %}
+            </div>
+            <hr>
+
+            <h3>Смена пароля</h3>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="change_password">
+
+                <input type="password" name="old_password" placeholder="Старый пароль" required>
+                <input type="password" name="new_password" placeholder="Новый пароль" required>
+                <input type="password" name="confirm_password" placeholder="Повторите пароль" required>
+
+                <button type="submit">Сменить пароль</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

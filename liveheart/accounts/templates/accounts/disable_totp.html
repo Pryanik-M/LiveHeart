@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отключение Google Authenticator</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/verify.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="totp-content-stack">
+    <div class="back-link">
+            <a href="{% url 'accounts:profile' %}">← Назад</a>
+    </div>
+        <div class="card" style="max-width:400px; margin:auto;">
+        <form method="post">
+            {% csrf_token %}
+            <h2>Отключить приложение аунтификатор</h2>
+            <input type="text" name="code" placeholder="Код из приложения" required autofocus>
+            {% for message in messages %}
+                <p style="color:red">{{ message }}</p>
+            {% endfor %}
+            <button type="submit">Отключить</button>
+        </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

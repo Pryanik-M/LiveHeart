@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <style>
+        @page { size: A4; margin: 2cm; }
+        body { font-family: sans-serif; font-size: 12px; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .title { font-size: 16px; font-weight: bold; margin-bottom: 5px; }
+        .subtitle { font-size: 14px; margin-bottom: 20px; text-align: center; font-weight: bold; }
+
+        /* Сетка для данных пациента */
+        .patient-info { width: 100%; margin-bottom: 20px; border-collapse: collapse; }
+        .patient-info td { padding: 5px; }
+        .label { font-weight: bold; }
+
+        /* Таблицы для разделов */
+        .section-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        .section-table th {
+            background-color: #f0f0f0;
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .section-table td {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        .val-col { width: 40%; }
+        .name-col { width: 60%; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>ГБУЗ НО «Центральная городская больница г. Арзамас»</div>
+    </div>
+
+    <div class="subtitle">ПРОТОКОЛ ЭХОКАРДИОГРАФИИ</div>
+
+    <table class="patient-info">
+        <tr>
+            <td><span class="label">ФИО:</span> {{ exam.patient.full_name }}</td>
+            <td><span class="label">Дата:</span> {{ exam.exam_datetime|date:"d.m.Y" }}</td>
+        </tr>
+        <tr>
+            <td><span class="label">Возраст:</span> {{ exam.age|default:"-" }} лет</td>
+            <td><span class="label">Рост/Вес:</span> {{ exam.height|default:"-" }}/{{ exam.weight|default:"-" }}</td>
+        </tr>
+        <tr>
+            <td><span class="label">ППТ:</span> {{ exam.bsa|default:"-" }} м²</td>
+            <td><span class="label">ЧСС:</span> {{ exam.hr|default:"-" }} уд/мин</td>
+        </tr>
+    </table>
+
+    <hr style="border: 0; border-top: 1px solid #000; margin-bottom: 20px;">
+
+    {% if exam.aorta.is_enabled %}
+    <table class="section-table">
+        <thead><tr><th colspan="2">АОРТА</th></tr></thead>
+        <tbody>
+            <tr>
+                <td class="name-col">Диаметр основания</td>
+                <td class="val-col">{{ exam.aorta.diameter|default:"-" }} мм</td>
+            </tr>
+            <tr>
+                <td class="name-col">Раскрытие створок АК</td>
+                <td class="val-col">{{ exam.aorta.valve_opening|default:"-" }} мм</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if exam.aorticvalve.is_enabled %}
+    <table class="section-table">
+        <thead><tr><th colspan="2">АОРТАЛЬНЫЙ КЛАПАН</th></tr></thead>
+        <tbody>
+            <tr><td>Пиковая скорость (Vmax)</td><td>{{ exam.aorticvalve.psk|default:"-" }} м/с</td></tr>
+            <tr><td>Макс. градиент (Gd max)</td><td>{{ exam.aorticvalve.grad_max|default:"-" }} мм рт.ст.</td></tr>
+            <tr><td>Средний градиент (Gd mean)</td><td>{{ exam.aorticvalve.grad_mean|default:"-" }} мм рт.ст.</td></tr>
+            <tr><td>Регургитация</td><td>{{ exam.aorticvalve.regurgitation }} ст.</td></tr>
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if exam.leftventricle.is_enabled %}
+    <table class="section-table">
+        <thead><tr><th colspan="2">ЛЕВЫЙ ЖЕЛУДОЧЕК</th></tr></thead>
+        <tbody>
+            <tr><td>КДР</td><td>{{ exam.leftventricle.edd|default:"-" }} мм</td></tr>
+            <tr><td>КСР</td><td>{{ exam.leftventricle.esd|default:"-" }} мм</td></tr>
+            <tr><td>КДО</td><td>{{ exam.leftventricle.edv|default:"-" }} мл</td></tr>
+            <tr><td>КСО</td><td>{{ exam.leftventricle.esv|default:"-" }} мл</td></tr>
+            <tr><td>МЖП (толщина)</td><td>{{ exam.leftventricle.ivsd|default:"-" }} мм</td></tr>
+            <tr><td>ЗСЛЖ (толщина)</td><td>{{ exam.leftventricle.pw|default:"-" }} мм</td></tr>
+        </tbody>
+    </table>
+    {% endif %}
+    </body>
+</html>
