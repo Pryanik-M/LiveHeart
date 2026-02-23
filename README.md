@@ -27,22 +27,6 @@ LiveHeart — это Django-веб-приложение для управлен�
 
 ---
 
-# 🏗 Архитектура проекта
-LiveHeart/
-│
-├── liveheart/ # Основной Django проект
-│ ├── settings.py
-│ ├── urls.py
-│ └── wsgi.py
-│
-├── accounts/ # Авторизация и 2FA
-├── patients/ # Управление пациентами
-│
-├── manage.py
-├── requirements.txt
-└── README.md
-
-
 Проект разделён на два приложения:
 
 - `accounts` — отвечает за пользователей, вход и TOTP
@@ -64,51 +48,52 @@ LiveHeart/
 ```bash
 git clone https://github.com/Pryanik-M/LiveHeart.git
 cd LiveHeart
+```
 
 ## 2️⃣ Создать виртуальное окружение
 ```bash
 python -m venv venv
+```
 
 3️⃣ Активировать виртуальное окружение
 Windows PowerShell
 ```bash
 .\venv\Scripts\Activate
-```bash
+```
 Linux / macOS
+```bash
 source venv/bin/activate
-
+```
 После активации перед строкой терминала появится (venv).
-
 4️⃣ Установить зависимости
 ```bash
 pip install -r requirements.txt
-
+```
 5️⃣ Создать файл окружения .env
-
 В папке liveheart/liveheart/ создать файл .env:
-
 ```bash
 SECRET_KEY=your-secret-key
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1,localhost
-
+```
 Чтобы сгенерировать SECRET_KEY:
 ```bash
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-
+```
 6️⃣ Применить миграции
 ```bash
 python manage.py makemigrations
 python manage.py migrate
-
+```
 7️⃣ Создать суперпользователя
 ```bash
 python manage.py createsuperuser
-
+```
 8️⃣ Запустить сервер
 ```bash
 python manage.py runserver
-
+```
 Открыть в браузере:
 ```bash
 http://127.0.0.1:8000/
+```
